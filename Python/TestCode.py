@@ -1,11 +1,11 @@
-from Minecraft import Fabric
-from Minecraft.Events.EventType import EventType
+from Bridge import Bridge
+from Bridge.Bridge import EventType
 
-Minecraft = Fabric.create()
+Connection = Bridge.create()
 
 
-@Minecraft.on(EventType.JOIN_WORLD)
-def join_world():
-    print("loaded world")
-    player = Minecraft.get_client_player()
-    print(player)
+@Connection.on(EventType.INTERVAL)
+def sent_event(packet):
+    print("Interval got sent")
+    # Sending a reply
+    Connection.client.notify_server("interval_answer", 5, "this is a test message")

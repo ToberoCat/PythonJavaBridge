@@ -15,11 +15,10 @@ class TestServer {
         server = new Server(1337);
 
         Runnable helloRunnable = () -> {
-            server.sendEvent(new Package("join_world"));
-            System.out.println("Send event");
+            server.sendEvent(new Package("interval_tick"));
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 0, 3, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 5, TimeUnit.SECONDS);
     }
 }

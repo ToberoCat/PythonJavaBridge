@@ -3,8 +3,7 @@ import socket
 import threading
 import uuid
 
-from Minecraft.Events.EventType import EventType
-from Minecraft.Networking.Response import WaitResponse
+from Bridge.Networking.Response import WaitResponse
 
 
 class ResponseError(Exception):
@@ -53,7 +52,7 @@ class Client:
                     self.waiting_response.get(msg_id)(msg)
                     del self.waiting_response[msg_id]
                 else:
-                    self.handle_event(msg_id)
+                    self.handle_event(msg)
 
             except socket.timeout:  # Ignored
                 pass

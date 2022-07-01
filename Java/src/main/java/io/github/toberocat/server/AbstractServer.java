@@ -65,17 +65,16 @@ public abstract class AbstractServer implements Runnable {
         connected = socket;
 
         if (socket == null) return;
+        System.out.println("Python connected");
 
 
         PrintWriter outputPipeline = new PrintWriter(socket.getOutputStream());
         InputStream is = socket.getInputStream();
         while (!socket.isClosed()) {
-            System.out.println("reading...");
             byte[] buffer = new byte[1024];
             int read = is.read(buffer);
             if (read == -1) continue;
 
-            System.out.println("Writing...");
             Package pack = parsePackage(new String(buffer, 0, read));
             if (methods.containsKey(pack.getId())) {
                 methods.get(pack.getId()).accept(pack.getData(), (reply) -> {
